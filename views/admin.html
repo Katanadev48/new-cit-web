@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f6f5">
+    <title>Order management | Social Panel</title>
+    <script src="/js/theme-init.js"></script>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <script src="/js/theme.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <nav class="sidebar" aria-label="Admin navigation">
+        <a href="/admin" aria-current="page">Orders</a>
+        <a href="/admin/users">Users</a>
+        <a href="/dashboard">Client dashboard</a>
+      </nav>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <p class="muted">Administration</p>
+            <h1>Order management</h1>
+          </div>
+          <button
+            id="theme-toggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Switch to dark theme"
+            aria-pressed="false"
+          >
+            Dark mode
+          </button>
+        </header>
+
+        <section class="stat-grid" aria-label="Order status summary">
+          <article class="stat-card">
+            <span class="stat-label">All orders</span>
+            <p class="stat-value" id="admin-total-orders">--</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Pending</span>
+            <p class="stat-value" id="admin-pending-orders">--</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">In progress</span>
+            <p class="stat-value" id="admin-in-progress-orders">--</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Completed</span>
+            <p class="stat-value" id="admin-completed-orders">--</p>
+          </article>
+        </section>
+
+        <section class="panel" aria-labelledby="orders-heading">
+          <div class="panel-heading">
+            <div>
+              <h2 id="orders-heading">Orders</h2>
+              <p class="muted">Review orders and update their status</p>
+            </div>
+          </div>
+
+          <div class="admin-filters">
+            <div class="form-field">
+              <label for="order-search">Search orders</label>
+              <input
+                id="order-search"
+                type="search"
+                placeholder="Order ID, username, or service"
+                autocomplete="off"
+              >
+            </div>
+            <div class="form-field">
+              <label for="status-filter">Filter by status</label>
+              <select id="status-filter">
+                <option value="">All statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+
+          <p id="admin-orders-message" class="muted" role="status" aria-live="polite">
+            Loading orders...
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <caption class="muted">Orders with status controls</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Order</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Target</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Created</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-orders-body" aria-live="polite">
+                <tr>
+                  <td colspan="9" class="muted">Orders will appear here.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="admin-order-row-template">
+      <tr>
+        <td data-field="id"></td>
+        <td data-field="username"></td>
+        <td data-field="serviceName"></td>
+        <td><a data-field="link" target="_blank" rel="noopener noreferrer">Open</a></td>
+        <td data-field="quantity"></td>
+        <td data-field="price"></td>
+        <td>
+          <span class="status" data-field="status-label"></span>
+        </td>
+        <td data-field="createdAt"></td>
+        <td>
+          <div class="order-actions">
+            <label class="muted" data-label-for="status" hidden>Status</label>
+            <select data-field="status-select" aria-label="Update order status">
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+            <button class="button-primary" data-action="save-status" type="button">
+              Save
+            </button>
+          </div>
+        </td>
+      </tr>
+    </template>
+  </body>
+</html>

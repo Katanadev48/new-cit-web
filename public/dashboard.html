@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f6f5">
+    <title>Dashboard | Social Panel</title>
+    <script src="/js/theme-init.js"></script>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <script src="/js/theme.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <nav class="sidebar" aria-label="Main navigation">
+        <a href="/dashboard.html" aria-current="page">Overview</a>
+        <a href="#new-order">New order</a>
+        <a href="#recent-orders">Orders</a>
+        <a href="/wallet">Wallet</a>
+        <a href="/account">Account</a>
+      </nav>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <p class="muted">Client workspace</p>
+            <h1>Dashboard</h1>
+          </div>
+          <button
+            id="theme-toggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Switch to dark theme"
+            aria-pressed="false"
+          >
+            Dark mode
+          </button>
+        </header>
+
+        <section class="stat-grid" aria-label="Account summary">
+          <article class="stat-card">
+            <span class="stat-label">Wallet balance</span>
+            <p class="stat-value" id="wallet-balance">--</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Total orders</span>
+            <p class="stat-value" id="order-count">--</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">In progress</span>
+            <p class="stat-value" id="in-progress-count">--</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Completed</span>
+            <p class="stat-value" id="completed-count">--</p>
+          </article>
+        </section>
+
+        <div class="dashboard-grid">
+          <section class="panel" id="recent-orders" aria-labelledby="orders-heading">
+            <div class="panel-heading">
+              <div>
+                <h2 id="orders-heading">Recent orders</h2>
+                <p class="muted">Your latest service activity</p>
+              </div>
+              <a href="/orders">View all</a>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="muted">Recent orders and their current status</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Order</th>
+                    <th scope="col">Service</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="orders-table-body" aria-live="polite">
+                  <tr>
+                    <td colspan="5" class="muted">Loading orders...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel" id="new-order" aria-labelledby="new-order-heading">
+            <div class="panel-heading">
+              <div>
+                <h2 id="new-order-heading">New order</h2>
+                <p class="muted">Choose a service to get started</p>
+              </div>
+            </div>
+            <form id="new-order-form" class="form-grid">
+              <div class="form-field form-field--wide">
+                <label for="service-id">Service</label>
+                <select id="service-id" name="serviceId" required>
+                  <option value="">Select a service</option>
+                </select>
+              </div>
+              <div class="form-field form-field--wide">
+                <label for="target-link">Target link</label>
+                <input
+                  id="target-link"
+                  name="link"
+                  type="url"
+                  inputmode="url"
+                  autocomplete="url"
+                  maxlength="2048"
+                  placeholder="https://..."
+                  required
+                >
+              </div>
+              <div class="form-field">
+                <label for="quantity">Quantity</label>
+                <input
+                  id="quantity"
+                  name="quantity"
+                  type="number"
+                  min="1"
+                  step="1"
+                  inputmode="numeric"
+                  required
+                >
+              </div>
+              <div class="form-field">
+                <label for="estimated-price">Estimated total</label>
+                <input id="estimated-price" type="text" value="--" readonly>
+              </div>
+              <div class="form-field form-field--wide">
+                <button class="button-primary" type="submit">Place order</button>
+                <p id="order-message" class="muted" role="status" aria-live="polite"></p>
+              </div>
+            </form>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
